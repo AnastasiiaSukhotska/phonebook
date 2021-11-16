@@ -1,29 +1,35 @@
+
+
+
+
 class LoginForm{
 	constructor(selector, userService){
 		this.selector=selector;
 		this.userService=userService;
 		this.onregister=()=>{};
-		document.addEventListener('DOMContentLoaded', ()=>{
+		$(document).ready(()=>{
 			this.init();
 			this.binds();
 		});
 
 	}
 	init(){
-		this.container=document.querySelector(this.selector);
-		this.loginInput=this.container.querySelector('#login_user_login');
-		this.passwordInput=this.container.querySelector('#login_user_password');
-		this.button=this.container.querySelector('button');
+		this.container=$(this.selector);
+		this.loginInput=$('#login_user_login');
+		this.passwordInput=$('#login_user_password');
+		this.button=$('.btn_login');
 
 	}
 	binds(){
-		this.button.addEventListener('click', ()=>this.login())
+		$(this.button).on('click', ()=>this.login());
 	}
 	login(){
+		
+	
 		let user=new User(
-			this.loginInput.value,
+			this.loginInput.val(),
 			null,
-			this.passwordInput.value
+			this.passwordInput.val()
 			);
 		if(user.password.trim()===''||user.login.trim===''){
 			alert('Fill form');
@@ -33,7 +39,6 @@ class LoginForm{
 			if(r.status=='error') this.loginError(r.error);
 			else if(r.token!==null){
 				token=r.token;
-
 				this.successLogin();
 		}})
 		
@@ -54,10 +59,10 @@ class LoginForm{
 		this.loginInput.value='';
 	}
 	hide(){
-		let unauthorizedScreen= document.querySelector('.unauthorized-screen');
-		unauthorizedScreen.style.display='none';
-		let authorizedScreen=document.querySelector('.autorized-screen');
-		authorizedScreen.style.display='flex';
+		let unauthorizedScreen= $('.unauthorized-screen');
+		unauthorizedScreen.css('display', 'none');
+		let authorizedScreen=$('.autorized-screen');
+		authorizedScreen.css('display', 'flex');
 	
 	}
 	

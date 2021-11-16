@@ -1,3 +1,4 @@
+
 class User{
 	constructor(login, bornDate, password){
 		this.login=login;

@@ -1,3 +1,4 @@
+
 class Contact{
 	constructor(type, name, value, id){
 			this.type=type;
@@ -12,11 +13,11 @@ class Contact{
 
 	static createContactName(c){
 		return nameElement={name: c.name,
-							value: c.value
+							value: c.value,
+							type: c.type
 		};
 	}
 
 }
 
 let nameElement={};
-

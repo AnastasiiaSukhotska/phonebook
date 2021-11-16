@@ -1,39 +1,58 @@
+
 class UserServices{
 
+
 	getAll(){
-		return fetch(UserServices.BASE_URL+'users')
-			.then(r=>r.json())
-			.then(r=>r.users)
-			.then(us=>us.map(u=>User.create(u)))
-	}
-	register(user){
-		return fetch(UserServices.BASE_URL+'register',{
-			method: 'POST',
+		return $.get(UserServices.BASE_URL+'users', (r)=>{
+			let users=r.users.map(us=>User.create(us));
+			console.log(users);
+			
+			})
+		}
+
+
+
+
+		register(user){
+			return $.ajax({
+				url: UserServices.BASE_URL+"register",
+				method: "POST",
 			headers:{
 				'Content-Type':'application/json'
 			},
-			body: JSON.stringify({
+			data: JSON.stringify({
 				login: user.login,
-				password: user.password,
+				password: user.password, 
 				date_born: user.bornDate
+			}),
+			dataType:"json",
 			})
-		}).then(r=>r.json());
-	}
+		}
+
+
+		
+
+
 
 	login(user){
-		return fetch(UserServices.BASE_URL+'login',{
-			method: 'POST',
+		return $.ajax({
+			url: UserServices.BASE_URL+'login',
+			method: "POST",
 			headers:{
 				'Content-Type':'application/json'
 			},
-			body: JSON.stringify({
+			data: JSON.stringify({
 				login: user.login,
-				password: user.password,
-			})
-		}).then(r=>r.json());
-	}
-
-	
+				password: user.password
+			}),
+			dataType:"json",
+			success:(r)=>{
+				console.log(r);
+			}
+			});
+			
+		}
 }
+	
 
 UserServices.BASE_URL='https://mag-contacts-api.herokuapp.com/';

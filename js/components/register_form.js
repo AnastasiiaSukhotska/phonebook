@@ -1,30 +1,33 @@
+
+
 class RegisterForm{
 	constructor(selector, userService){
 		this.selector=selector;
 		this.userService=userService;
 		this.onregister=()=>{};
-		document.addEventListener('DOMContentLoaded', ()=>{
+		let doc=$(document);
+		doc.ready(()=>{
 			this.init();
 			this.binds();
-		});
+		})
 
 	}
 	init(){
-		this.container=document.querySelector(this.selector);
-		this.loginInput=this.container.querySelector('#login_user_login');
-		this.bornInput=this.container.querySelector('#login_user_born');
-		this.passwordInput=this.container.querySelector('#login_user_password');
-		this.button=this.container.querySelector('button');
+		this.container=$(this.selector);
+		this.loginInput=$('#register_user_login');
+		this.bornInput=$('#register_user_born');
+		this.passwordInput=$('#register_user_password');
+		this.button=$('.btn_register');
 
 	}
 	binds(){
-		this.button.addEventListener('click', ()=>this.register())
+		this.button.on('click', ()=>this.register())
 	}
 	register(){
 		let user=new User(
-			this.loginInput.value,
-			this.bornInput.value,
-			this.passwordInput.value
+			this.loginInput.val(),
+			this.bornInput.val(),
+			this.passwordInput.val()
 			);
 		this.userService.register(user).then(r=>{
 			if(r.status=='error') this.registerError(r.error);
@@ -42,9 +45,9 @@ class RegisterForm{
 		this.onregister();
 	}
 	clearForm(){
-		this.passwordInput.value='';
-		this.loginInput.value='';
-		this.bornInput.value='';
+		this.passwordInput.val('');
+		this.loginInput.val('');
+		this.bornInput.val('');
 	}
 	
 }

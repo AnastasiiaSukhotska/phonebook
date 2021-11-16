@@ -1,76 +1,103 @@
 let token=null;
-let activeName=null;
-let nameElements;
-let names=[];
+let chosenContactInformation=$('.chosen-contact__information');
 let userService=new UserServices();
-let contactService=new ContactServices();
-let registerForm = new RegisterForm('.register-form', userService);
+
 let loginForm = new LoginForm('.login_form', userService);
 loginForm.onregister=()=>{
 	showPeople();
 }
+let registerForm = new RegisterForm('.register-form', userService);
+let contactService=new ContactServices();
 let addContactForm=new AddContactForm('.chosen-contact__add-form', contactService);
 addContactForm.onregister=()=>{
 	showPeople();
 }
-
-
 function showPeople(){
-		let nameList=document.querySelector('.name-list');
-		nameList.innerHTML=''
-		nameElements = contactService.getAllContacts().then(c=>c.map(c=>Contact.createContactName(c))).then(rs=>rs.map((r,i)=>createNameElement(r,i))).then(rs=>rs.forEach((r)=>append(r)))
-		nameList.addEventListener('click', (e)=>{
-			if (!e.target.matches('.name-list__name-element')) return;
+		let nameList=$('.name-list');
+		nameList.html('');
+		nameElements = contactService.getAllContacts();
+		nameList.on('click', '.name-list__name-element', (e)=>{
+			chosenContactInformation.html('');
 			let index =e.target.dataset.index;
 			let chosenName=e.target.dataset.name;
 			let chosenValue=e.target.dataset.value;
-			contactService.findContact(chosenName, chosenValue).then(rs=>rs.map((r)=>createChosenContactElement(r)))			
+			console.log(chosenName, chosenValue);
+			contactService.findContact(chosenName, chosenValue)		
 		})
 
 	}
 
+let nameElements;
+let names=[];
 
 
-function append(arg){
-		let nameList=document.querySelector('.name-list');
+function createNameElement(c,i){
+		let $nameElement=$('<div>');
+		$nameElement.addClass('name-list__name-element');
+		$nameElement.attr('data-index', i);
+		$nameElement.attr('data-name', c.name);
+		$nameElement.attr('data-value', c.value);
+		$nameElement.append(c.name);
+		return $nameElement;
+	}
+
+
+	function append(arg){
+		let nameList=$('.name-list');
 		nameList.append(arg);
 	}
 
-function createChosenContactElement(contact){
-	let chosenContactInformation=document.querySelector('.chosen-contact__information');
-	let chosenContactInformationElements=document.createElement('div');
-	chosenContactInformation.innerHTML='';
-	chosenContactInformationElements.classList.add('chosen-contact__information-elements');
-	let chosenContactInformationName=document.createElement('div');
-	chosenContactInformationName.classList.add('chosen-contact__information_name');
-	let chosenContactInformationType=document.createElement('div');
-	chosenContactInformationType.classList.add('chosen-contact__information_type');
-	let chosenContactInformationValue=document.createElement('div');
-	chosenContactInformationValue.classList.add('chosen-contact__information_value');
-	chosenContactInformationName.append('Name: '+contact.name);
-	chosenContactInformationType.append('Type: '+contact.type);
-	chosenContactInformationValue.append('Value: '+contact.value);
-	chosenContactInformationElements.append(chosenContactInformationName);
-	chosenContactInformationElements.append(chosenContactInformationType);
-	chosenContactInformationElements.append(chosenContactInformationValue);
-	chosenContactInformation.prepend(chosenContactInformationElements);
-	chosenContactInformationElements.style.display='flex';
-	return chosenContactInformationElements;
+	function append2(arg){
+		chosenContactInformation=$('.chosen-contact__information');
+		chosenContactInformation.append(arg);
+	}
+
+
+
+
+
+
+
+function createChosenContactElement(contact, i){
+	
+	let $chosenContactInformationElements=$('<div>');
+	console.log($chosenContactInformationElements);
+	$chosenContactInformationElements.addClass('chosen-contact__information-elements');
+	$chosenContactInformationElements.html('Name: '+contact.name +'<br> Type: ' +contact.type+ '<br> Value: '+ contact.value);
+	console.log($chosenContactInformationElements);
+	console.log($chosenContactInformationElements);
+	$chosenContactInformationElements.css('display', 'flex');
+	return $chosenContactInformationElements;
+
+
 
 }
 
 
-function createNameElement(c,i){
-		let nameElement=document.createElement('div');
-		nameElement.classList.add('name-list__name-element');
-		nameElement.dataset.index=i;
-		nameElement.dataset.name=c.name;
-		nameElement.dataset.value=c.value;
-		nameElement.append(c.name);
-		return nameElement;
-	}
 
-bbbbbb
+
+/*
+function createChosenContactElement(contact){
+	let chosenContactInformation=$('.chosen-contact__information');
+	let $chosenContactInformationElements=$('div');
+	chosenContactInformation.html('');
+	$chosenContactInformationElements.addClass('chosen-contact__information-elements');
+	$chosenContactInformationName.append('Name: '+contact.name);
+	$chosenContactInformationType.append('Type: '+contact.type);
+	$chosenContactInformationValue.append('Value: '+contact.value);
+	$chosenContactInformationElements.append($chosenContactInformationName);
+	$chosenContactInformationElements.append($chosenContactInformationType);
+	$chosenContactInformationElements.append($chosenContactInformationValue);
+	chosenContactInformation.prepend($chosenContactInformationElements);
+	$chosenContactInformationElements.css('display', 'flex');
+	return $chosenContactInformationElements;
+
+
+
+}
+*/
+
+
 
 
 

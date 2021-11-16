@@ -1,32 +1,33 @@
+
 class AddContactForm{
 	constructor(selector, contactService){
 		this.selector=selector;
 		this.contactService=contactService;
 		this.onregister=()=>{};
-		document.addEventListener('DOMContentLoaded', ()=>{
+		$(document).ready(()=>{
 			this.init();
 			this.binds();
 		});
 
 	}
 	init(){
-		this.container=document.querySelector(this.selector);
-		this.nameInput=this.container.querySelector('.chosen-contact__add-form_name');
-		this.typeInput=this.container.querySelector('#type');
-		this.valueInput=this.container.querySelector('.chosen-contact__add-form_value');
-		this.button=this.container.querySelector('button');
+		this.container=$(this.selector);
+		this.nameInput=$('.chosen-contact__add-form_name');
+		this.typeInput=$('#type');
+		this.valueInput=$('.chosen-contact__add-form_value');
+		this.button=$('.btn_add_contact');
 
 	}
 	binds(){
-		this.button.addEventListener('click', ()=>{this.addContact();
+		this.button.on('click', ()=>{this.addContact();
 			
 		})
 	}
 	addContact(){
 		let contact=new Contact(
-			this.typeInput.value,
-			this.nameInput.value,
-			this.valueInput.value
+			this.typeInput.val(),
+			this.nameInput.val(),
+			this.valueInput.val()
 			);
 		if(contact.name.trim()===''||contact.value.trim()===''){
 			alert('Fill form');
@@ -49,9 +50,9 @@ class AddContactForm{
 
 	}
 	clearForm(){
-		this.nameInput.value='';
-		this.typeInput.value='';
-		this.valueInput.value='';
+		this.nameInput.val("");
+		this.typeInput.val("");
+		this.valueInput.val("");
 	}
 	
 	

@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<script src="node_modules/jquery/dist/jquery.js"></script>
 	<script src="js/services/user_services.js"></script>
 	<script src="js/services/contacts_services.js"></script>
 	<script src="js/models/model_user.js"></script>
@@ -152,10 +153,10 @@
 			
 		}
 
-		label[for=login_user_login]{
+		label[for=register_user_login], label[for=login_user_login]{
 			margin-right: 39px;
 		}
-		label[for=login_user_born]{
+		label[for=register_user_born], label[for=login_user_born]{
 			margin-right: 15px;
 		}
 
@@ -207,19 +208,19 @@
 					<div class="form__header">Register</div>
 					<div class="form__body">
 						<div class="form__control">
-							<label for="login_user_login">Login</label>
-							<input type="text" class="input" id="login_user_login">
+							<label for="register_user_login">Login</label>
+							<input type="text" class="input" id="register_user_login">
 						</div>
 						<div class="form__control">
-							<label for="login_user_password">Password</label>
-							<input type="text" class="input" id="login_user_password">
+							<label for="register_user_password">Password</label>
+							<input type="text" class="input" id="register_user_password">
 						</div>
 						<div class="form__control">
-							<label for="login_user_born">Birthday</label>
-							<input type="text" class="input" id="login_user_born">
+							<label for="register_user_born">Birthday</label>
+							<input type="text" class="input" id="register_user_born">
 						</div>
 						<div class="form__control">
-							<button class="btn btn_success">register</button>
+							<button class="btn_register btn_success">register</button>
 						</div>
 					</div>
 				</div>
@@ -230,14 +231,14 @@
 					<div class="form__body">
 						<div class="form__control">
 							<label for="login_user_login">Login</label>
-							<input type="text" class="input" id="login_user_login">
+							<input type="text" class="input" id="login_user_login" name="user_name"> 
 						</div>
 						<div class="form__control">
 							<label for="login_user_password">Password</label>
-							<input type="text" class="input" id="login_user_password">
+							<input type="text" class="input" id="login_user_password" name="user_password">
 						</div>
 						<div class="form__control">
-							<button class="btn btn_success">Log In</button>
+							<button class="btn btn_login btn_success">Log In</button>
 						</div>
 					</div>
 				</div>
@@ -265,7 +266,7 @@
 				</select>
 				<div class="chosen-contact__add-form_title">Email/phone</div>
 				<input type="text" class="chosen-contact__add-form_value">
-				<button>add</button>
+				<button class="btn_add_contact">add</button>
 			</div>
 		</div>
 	</div>

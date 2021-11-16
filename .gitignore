@@ -3,3 +3,5 @@ js\.DS_Store
 services\.DS_Store
 models\.DS_Store
 components\.DS_Store
+node_modules/
+package-lock.json
