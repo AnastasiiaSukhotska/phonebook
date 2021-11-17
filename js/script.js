@@ -1,7 +1,7 @@
 let token=null;
 let chosenContactInformation=$('.chosen-contact__information');
 let userService=new UserServices();
-
+let nameList=$('.name-list');
 let loginForm = new LoginForm('.login_form', userService);
 loginForm.onregister=()=>{
 	showPeople();
@@ -22,10 +22,12 @@ function showPeople(){
 			let chosenName=e.target.dataset.name;
 			let chosenValue=e.target.dataset.value;
 			console.log(chosenName, chosenValue);
-			contactService.findContact(chosenName, chosenValue)		
-		})
+			contactService.findContact(chosenName, chosenValue);
 
+		})
+		
 	}
+
 
 let nameElements;
 let names=[];
@@ -43,13 +45,14 @@ function createNameElement(c,i){
 
 
 	function append(arg){
-		let nameList=$('.name-list');
+		nameList=$('.name-list');
 		nameList.append(arg);
 	}
 
 	function append2(arg){
 		chosenContactInformation=$('.chosen-contact__information');
 		chosenContactInformation.append(arg);
+		console.log(chosenContactInformation);
 	}
 
 

@@ -20,33 +20,30 @@ class ContactServices{
 			}
 		})
 	}
-			
+
 
 	findContact(chosenName, chosenValue){
 		return $.ajax({
-			url: ContactServices.BASE_URL+'contacts/find',
-			method: 'POST',
+			url: ContactServices.BASE_URL+'contacts',
+			method: "GET",
 			headers:{
 				'Content-Type':'application/json',
 				'Accept':'application/json',
 				'Authorization':'Bearer '+token
 			},
-			data: JSON.stringify({
-				name: chosenName,
-				value: chosenValue
-			}),
-			dataType: "json",
-			success: (r)=>{
+			success:(r)=>{
 				let contacts=r.contacts.map(c=>Contact.createContactName(c));
 				console.log(contacts);
-				contacts=contacts.map((c,i)=>createChosenContactElement(c,i));
-				append2(contacts);
+				let chosenContact=contacts.find(c=>c.name==chosenName && c.value==chosenValue);
+				console.log(chosenContact);
+				chosenContact=createChosenContactElement(chosenContact);
+				console.log(chosenContact);
+				append2(chosenContact);
 
-				}	
-			})
-
-		}
-
+			}
+		})
+	}
+			
 
 	addContact(contact){
 		return $.ajax({
